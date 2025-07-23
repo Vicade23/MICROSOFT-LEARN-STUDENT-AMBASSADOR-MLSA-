@@ -104,9 +104,9 @@ export function Navigation() {
                   {/* Mobile Logo */}
                   <div className="flex items-center space-x-2 pb-6 border-b border-border">
                     <img 
-                      src="/lovable-uploads/355f86bc-eb5a-4fb9-bddc-23854f0ff11d.png" 
+                      src={logo} 
                       alt="MLSA Logo" 
-                      className="h-10 w-10"
+                      className="h-10 w-12"
                     />
                     <span className="text-xl font-bold text-glow">MLSA</span>
                   </div>
