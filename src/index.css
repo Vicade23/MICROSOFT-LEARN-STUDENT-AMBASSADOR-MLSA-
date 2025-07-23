@@ -1,0 +1,131 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Dark theme by default - MLSA branding */
+    --background: 210 20% 8%;
+    --foreground: 210 20% 98%;
+
+    --card: 210 20% 12%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 210 20% 12%;
+    --popover-foreground: 210 20% 98%;
+
+    /* Microsoft blue primary colors */
+    --primary: 210 100% 50%;
+    --primary-foreground: 210 20% 98%;
+    --primary-glow: 210 100% 65%;
+
+    --secondary: 210 20% 18%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 210 20% 15%;
+    --muted-foreground: 210 10% 70%;
+
+    --accent: 210 20% 20%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 210 20% 20%;
+    --input: 210 20% 15%;
+    --ring: 210 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Glass effect colors */
+    --glass-bg: 210 20% 12%;
+    --glass-border: 210 20% 25%;
+    --glass-shadow: 210 100% 50%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 50%), hsl(210 100% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(210 20% 8%), hsl(210 20% 15%));
+    --gradient-card: linear-gradient(135deg, hsl(210 20% 12% / 0.8), hsl(210 20% 18% / 0.8));
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(210 100% 50% / 0.3);
+    --shadow-glass: 0 8px 32px hsl(210 20% 8% / 0.5);
+    --shadow-card: 0 4px 16px hsl(210 20% 8% / 0.3);
+  }
+
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Glass effect utilities */
+  .glass {
+    @apply backdrop-blur-xl border;
+    background: hsl(var(--glass-bg) / 0.6);
+    border-color: hsl(var(--glass-border) / 0.3);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-card {
+    @apply glass rounded-lg;
+    background: var(--gradient-card);
+  }
+
+  .glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  }
+
+  /* Animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes glow-pulse {
+    from { box-shadow: var(--shadow-glow); }
+    to { box-shadow: 0 0 60px hsl(var(--primary) / 0.5); }
+  }
+
+  /* Navigation styles */
+  .nav-link {
+    @apply relative px-4 py-2 rounded-lg transition-all duration-300;
+    @apply hover:bg-secondary/50 hover:text-primary;
+  }
+
+  .nav-link.active {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .nav-link.active::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 w-1/2 h-0.5 bg-primary rounded-full;
+    transform: translateX(-50%);
+  }
+}
