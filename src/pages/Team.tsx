@@ -10,11 +10,11 @@ import lady from '../assets/lady.jpg'
 export default function Team() {
   const teamMembers = [
     {
-      name: "Sarah Chen",
-      role: "Microsoft Learn Student Ambassador - Gold",
-      location: "Seattle, WA",
-      university: "University of Washington",
-      major: "Computer Science & AI",
+      name: "Abdul Qowiyy",
+      role: "Microsoft Learn Student Ambassador - Beta",
+      location: "Kwara, Ilorin",
+      university: "University of Ilorin",
+      major: "Computer Science & Acting Lead",
       joinDate: "September 2022",
       specialties: ["AI/ML", "Azure", "Community Building"],
       bio: "Passionate about democratizing AI education and building inclusive tech communities. Leading AI workshops and hackathons across the Pacific Northwest.",
@@ -32,14 +32,14 @@ export default function Team() {
       isMicrosoftAmbassador: true
     },
     {
-      name: "Marcus Rodriguez",
+      name: "Robiu Olalere",
       role: "Microsoft Learn Student Ambassador - Beta",
-      location: "Austin, TX",
-      university: "University of Texas at Austin",
-      major: "Software Engineering",
-      joinDate: "January 2023",
-      specialties: ["Cloud Development", "DevOps", "Open Source"],
-      bio: "Full-stack developer with a passion for cloud technologies and DevOps practices. Advocates for sustainable software development and green computing.",
+      location: "Kwara, Ilorin",
+      university: "University of Ilorin",
+      major: "Big Data & ML Engineering",
+      joinDate: "January 2020",
+      specialties: ["Marchine Learning", "Big Data Analysis", "Open Source"],
+      bio: "Data engineer with a passion for cloud technologies and big data analysis practices. Advocates for sustainable software development and green computing.",
       image: algebra,
       achievements: [
         "Contributed to 20+ OSS projects",
@@ -54,14 +54,14 @@ export default function Team() {
       isMicrosoftAmbassador: true
     },
     {
-      name: "Priya Patel",
-      role: "Community Manager",
-      location: "San Francisco, CA",
-      university: "Stanford University",
+      name: "Ogundipe Grace",
+      role: "Socia Media Manager",
+      location: "Kwara, Ilorin",
+      university: "University of Ilorin",
       major: "Human-Computer Interaction",
       joinDate: "March 2023",
-      specialties: ["UX Design", "Community Management", "Event Planning"],
-      bio: "UX designer and community builder focused on creating inclusive spaces for underrepresented groups in tech. Organizes diversity and inclusion initiatives.",
+      specialties: ["Socia Media Manager", "Community Management", "Data Science"],
+      bio: "Community builder focused on creating inclusive spaces for underrepresented groups in tech. Organizes diversity and inclusion initiatives.",
       image: lady,
       achievements: [
         "Grew community by 300%",
@@ -77,12 +77,12 @@ export default function Team() {
     },
     {
       name: "Adedokun Victor",
-      role: "Technical Content Creator",
-      location: "Boston, MA",
-      university: "MIT",
-      major: "Computer Science",
+      role: "Software Engineer",
+      location: "Kwara, Ilorin",
+      university: "University of Ilorin",
+      major: "Telecommunication Engineering",
       joinDate: "June 2023",
-      specialties: ["Technical Writing", "Video Production", "Data Science"],
+      specialties: ["Software Development", "AI Research", "Data Science"],
       bio: "Content creator specializing in making complex technical concepts accessible. Creates tutorials, documentation, and educational videos for the community.",
       image: me,
       achievements: [
