@@ -47,7 +47,7 @@ export default function Profile() {
     major: `${userDetail?.major}`,
     year: `${userDetail?.year}`,
     location: "San Francisco, CA",
-    joinDate: `${new Date(userDetail?.created_at).toLocaleString('default', { month: 'long' } )}, ${new Date(userDetail?.created_at).getFullYear()}`,
+    joinDate: `${new Date(userDetail?.created_at).toLocaleString('default', { month: 'long' } )} ${new Date(userDetail?.created_at).getFullYear()}`,
     bio: "Passionate about AI and machine learning, with a focus on ethical AI development. Love building applications that make a positive impact on society.",
     profileImage: "/api/placeholder/150/150",
     stats: {
