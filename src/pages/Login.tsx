@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Input } from "../components/ui/input";
@@ -7,6 +7,7 @@ import { Label } from "../components/ui/label";
 import { Checkbox } from "../components/ui/checkbox";
 import { Eye, EyeOff, ArrowLeft, Github, Mail } from "lucide-react";
 import logo from '../assets/students-ambassador-logo.png'
+import { Auth } from "../Services/auth";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,10 +16,17 @@ export default function Login() {
     password: "",
     rememberMe: false
   });
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
+    
+    Auth.login(formData).then( async (response) => {
+      console.log(formData)
+      navigate(`/`)
+    }).catch((error) => {
+      console.log('error:', error.message)
+    })
     console.log("Login form submitted:", formData);
   };
 

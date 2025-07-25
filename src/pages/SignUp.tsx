@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Input } from "../components/ui/input";
@@ -8,6 +8,8 @@ import { Checkbox } from "../components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { Eye, EyeOff, ArrowLeft, Github, Mail, CheckCircle } from "lucide-react";
 import logo from '../assets/students-ambassador-logo.png'
+import { Auth } from "../Services/auth";
+import { supabase } from "../lib/supaBaseClient";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -25,15 +27,39 @@ export default function Signup() {
     agreeToTerms: false,
     agreeToNewsletter: false
   });
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (currentStep < 2) {
       setCurrentStep(currentStep + 1);
     } else {
-      // Handle final signup logic here
+      
+      Auth.signUp(formData).then( async (response) => {
+        
+        const details = {
+            id: response.data.user?.id,          // this must match the auth user's ID
+            first_name: formData?.firstName,
+            last_name: formData?.lastName,
+            university: formData?.university,
+            major: formData?.major,
+            year: formData?.year,
+            agree_to_terms: formData?.agreeToTerms,
+            agree_to_news_letter: formData?.agreeToNewsletter,
+            created_at: new Date()
+        }
+        console.log(details)
+        // @ts-ignore
+        Auth.authProfile(details);
+        navigate(`/`)
+
+      }).catch((error) => {
+        console.log('error:', error.message)
+      })
+      
       console.log("Signup form submitted:", formData);
     }
+
   };
 
   const benefits = [

@@ -1,27 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "../components/ui/sheet";
 import { Menu, X, User, LogIn, UserPlus } from "lucide-react";
 import { cn } from "../lib/utils";
 import logo from '../assets/students-ambassador-logo.png'
+import { Storage } from "../Services/Storage";
 
-const navItems = [
-  { name: "Home", path: "/" },
-  { name: "Events", path: "/events" },
-  { name: "Student Hub", path: "/student-hub" },
-  { name: "Team", path: "/team" },
-];
-
-const authItems = [
-  { name: "View Profile", path: "/profile", icon: User },
-  { name: "Login", path: "/login", icon: LogIn },
-  { name: "Sign Up", path: "/signup", icon: UserPlus },
-];
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const [validatetoken, setValidateToken] = useState<boolean>(false)
+  // const [token, setToken] = useState<string | null>(null)
+
+
+  const tokenValidation = () => {
+
+    return setInterval(() => {
+      const jsonToken: any = localStorage.getItem('sb-zxeckrmzphdqrunwgiqy-auth-token')
+      const token = JSON.parse(jsonToken)?.access_token;
+      token === null || !token ? setValidateToken(false) : setValidateToken(true)
+      return token;
+    }, 2000);
+
+  }
+
+  
+  useEffect(() => {
+    tokenValidation()
+  },[validatetoken])
+  
+  
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "Events", path: "/events" },
+    { name: "Student Hub", path: "/student-hub" },
+    { name: "Team", path: "/team" },
+  ];
+
+  const authItems = validatetoken ? [ { name: "View Profile", path: "/profile", icon: User }, ] 
+  : [
+      { name: "Login", path: "/login", icon: LogIn },
+      { name: "Sign Up", path: "/signup", icon: UserPlus },
+    ];
+
 
   const NavLink = ({ item, mobile = false }: { item: typeof navItems[0]; mobile?: boolean }) => (
     <Link
