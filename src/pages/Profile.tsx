@@ -22,8 +22,11 @@ import {
   Award,
   ExternalLink
 } from "lucide-react";
+import { Auth } from "../Services/auth";
+import { useEffect, useState } from "react";
 
 export default function Profile() {
+  const [validatetoken, setValidateToken] = useState<boolean>(false)
   const userData = {
     name: "Alex Johnson",
     email: "alex.johnson@university.edu",
@@ -153,6 +156,18 @@ export default function Profile() {
       link: "https://github.com/alexj/carbon-tracker"
     }
   ];
+
+  useEffect(() => {
+      
+    const jsonToken: any = localStorage.getItem('sb-zxeckrmzphdqrunwgiqy-auth-token')
+    const token = JSON.parse(jsonToken)?.user;
+
+    Auth.getUserProfile(token).then( async (response) => {
+      console.log(response)
+    }).catch((error) => {
+      console.log('error:', error.message)
+    })
+  }, [])
 
   return (
     <div className="min-h-screen py-8">

@@ -3,8 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../co
 import { Badge } from "../components/ui/badge";
 import { ArrowRight, Users, Zap, Trophy, Globe, Code, Lightbulb } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [validatetoken, setValidateToken] = useState<boolean>(false)
   const benefits = [
     {
       icon: Code,
@@ -35,6 +37,20 @@ export default function Home() {
     { icon: Code, text: "Hands-on technology experience" }
   ];
 
+  
+  const tokenValidation = () => {
+    return setInterval(() => {
+      const jsonToken: any = localStorage.getItem('sb-zxeckrmzphdqrunwgiqy-auth-token')
+      const token = JSON.parse(jsonToken)?.access_token;
+      token === null || !token ? setValidateToken(false) : setValidateToken(true)
+      return token;
+    }, 2000);
+  }
+
+  useEffect(() => {
+    tokenValidation()
+  },[validatetoken])
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -61,8 +77,8 @@ export default function Home() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button variant="hero" size="lg" asChild>
-                <Link to="/signup">
-                  Join MLSA Today
+                <Link to={`${validatetoken ? '/team' : '/signup'} `}>
+                  Join MLSA Today 
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </Button>

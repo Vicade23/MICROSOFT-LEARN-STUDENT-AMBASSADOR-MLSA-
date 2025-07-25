@@ -26,4 +26,10 @@ export const Auth = {
             password: data?.password,
         })
     },
+    
+    getUserProfile: async (user: any) => {
+        return await supabase
+        .from('signup_profile')
+        .select('*').eq('id', user?.id)
+    },
 }
