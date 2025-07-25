@@ -4,6 +4,7 @@ import { Badge } from "../components/ui/badge";
 import { ArrowRight, Users, Zap, Trophy, Globe, Code, Lightbulb } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Auth } from "../Services/auth";
 
 export default function Home() {
   const [validatetoken, setValidateToken] = useState<boolean>(false)
@@ -50,6 +51,12 @@ export default function Home() {
   useEffect(() => {
     tokenValidation()
   },[validatetoken])
+
+// useEffect(() => {
+//     const jsonToken: any = localStorage.getItem('sb-zxeckrmzphdqrunwgiqy-auth-token')
+//     const token = JSON.parse(jsonToken)?.access_token;
+//     token && Auth.authProfile();
+//   }, [])
 
   return (
     <div className="min-h-screen">

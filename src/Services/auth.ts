@@ -10,13 +10,21 @@ export const Auth = {
         })
     },
 
-    authProfile: async (details: signUpProfile) => {
-        console.log(details)
-        await supabase.from('signup_profile').insert([
-            details,
-        ]).then(response => {
-            console.log(response)
+    // @ts-ignore
+    authProfile: async (profile) => {
+
+        try {
+            // const jsonProfile: any = localStorage.getItem('authProfile')
+            // const profile = JSON.parse(jsonProfile)?.access_token;
+            console.log(profile)
+            return await supabase.from('signup_profile')
+            .insert([profile,]).then(response => { 
+            // console.log(response)
         })
+        
+        } catch (error) {
+            console.log(error)
+        }
 
     },
     
@@ -27,9 +35,15 @@ export const Auth = {
         })
     },
     
-    getUserProfile: async (user: any) => {
-        return await supabase
+    getUserProfile: async () => {
+        const userResponse = await supabase.auth.getUser();
+        const req = await supabase
         .from('signup_profile')
-        .select('*').eq('id', user?.id)
+        .select('*')
+        .eq('id', `${userResponse.data.user?.id}`)
+        .single()
+        // console.log(req)
+        // console.log(userResponse)
+        return req
     },
 }

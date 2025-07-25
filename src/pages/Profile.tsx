@@ -26,15 +26,28 @@ import { Auth } from "../Services/auth";
 import { useEffect, useState } from "react";
 
 export default function Profile() {
-  const [validatetoken, setValidateToken] = useState<boolean>(false)
+  const [userDetail, setUserDetail] = useState<any>()
+
+  
+  useEffect(() => {
+    Auth.getUserProfile().then((response)=> {
+      // console.log(response)
+      setUserDetail(response.data)
+    }).catch(error => {
+      console.log(error.message)
+    })
+  }, [])
+
+
+
   const userData = {
-    name: "Alex Johnson",
-    email: "alex.johnson@university.edu",
-    university: "Stanford University",
-    major: "Computer Science",
-    year: "Junior",
+    name: `${userDetail?.first_name} ${userDetail?.last_name}`,
+    email: `${userDetail?.email}`,
+    university: `${userDetail?.university}`,
+    major: `${userDetail?.major}`,
+    year: `${userDetail?.year}`,
     location: "San Francisco, CA",
-    joinDate: "September 2023",
+    joinDate: `${new Date(userDetail?.created_at).toLocaleString('default', { month: 'long' } )}, ${new Date(userDetail?.created_at).getFullYear()}`,
     bio: "Passionate about AI and machine learning, with a focus on ethical AI development. Love building applications that make a positive impact on society.",
     profileImage: "/api/placeholder/150/150",
     stats: {
@@ -157,17 +170,6 @@ export default function Profile() {
     }
   ];
 
-  useEffect(() => {
-      
-    const jsonToken: any = localStorage.getItem('sb-zxeckrmzphdqrunwgiqy-auth-token')
-    const token = JSON.parse(jsonToken)?.user;
-
-    Auth.getUserProfile(token).then( async (response) => {
-      console.log(response)
-    }).catch((error) => {
-      console.log('error:', error.message)
-    })
-  }, [])
 
   return (
     <div className="min-h-screen py-8">

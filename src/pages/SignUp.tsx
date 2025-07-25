@@ -10,6 +10,7 @@ import { Eye, EyeOff, ArrowLeft, Github, Mail, CheckCircle } from "lucide-react"
 import logo from '../assets/students-ambassador-logo.png'
 import { Auth } from "../Services/auth";
 import { supabase } from "../lib/supaBaseClient";
+import { email } from "zod";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -46,11 +47,14 @@ export default function Signup() {
             year: formData?.year,
             agree_to_terms: formData?.agreeToTerms,
             agree_to_news_letter: formData?.agreeToNewsletter,
-            created_at: new Date()
+            created_at: new Date(),
+            email: formData.email
         }
-        console.log(details)
+        // console.log(details)
+        // console.log(response)
         // @ts-ignore
-        Auth.authProfile(details);
+        localStorage.setItem('authProfile', JSON.stringify(details))
+        Auth.authProfile(details)
         navigate(`/`)
 
       }).catch((error) => {
