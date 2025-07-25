@@ -173,8 +173,16 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen py-8">
+
+      {!userDetail && <Card className="glass-card mt-6">
+        <CardContent className="pt-6">
+          <div className="animate-spin w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
+        </CardContent>
+      </Card>}
+
+
       {/* Profile Header */}
-      <section className="py-12">
+      {userDetail && <section className="py-12">
         <div className="container mx-auto px-4">
           <Card className="glass-card">
             <CardContent className="pt-6">
@@ -238,10 +246,10 @@ export default function Profile() {
             </CardContent>
           </Card>
         </div>
-      </section>
+      </section>}
 
       {/* Stats Overview */}
-      <section className="py-6">
+      {userDetail && <section className="py-6">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             <Card className="glass-card text-center">
@@ -276,10 +284,10 @@ export default function Profile() {
             </Card>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Main Content Tabs */}
-      <section className="py-6">
+      {userDetail && <section className="py-6">
         <div className="container mx-auto px-4">
           <Tabs defaultValue="overview" className="w-full">
             <TabsList className="grid w-full grid-cols-4 glass-card">
@@ -433,7 +441,7 @@ export default function Profile() {
             </TabsContent>
           </Tabs>
         </div>
-      </section>
+      </section>}
     </div>
   );
 }
