@@ -2,9 +2,30 @@ import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Github, Twitter, Linkedin, Mail, ExternalLink } from "lucide-react";
 import logo from '../assets/students-ambassador-logo.png'
+import { useEffect, useState } from "react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const [validatetoken, setValidateToken] = useState<boolean>(false)
+
+  
+    const tokenValidation = () => {
+  
+      return setInterval(() => {
+        const jsonToken: any = localStorage.getItem('sb-zxeckrmzphdqrunwgiqy-auth-token')
+        const token = JSON.parse(jsonToken)?.access_token;
+        token === null || !token ? setValidateToken(false) : setValidateToken(true)
+        return token;
+      }, 2000);
+  
+    }
+  
+    
+    useEffect(() => {
+      tokenValidation()
+    },[validatetoken])
+
+
 
   const quickLinks = [
     { name: "Home", path: "/" },
@@ -73,7 +94,7 @@ export function Footer() {
               {quickLinks.map((link) => (
                 <li key={link.path}>
                   <Link
-                    to={link.path}
+                    to={validatetoken ? link.path : '/signup'}
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
                     {link.name}

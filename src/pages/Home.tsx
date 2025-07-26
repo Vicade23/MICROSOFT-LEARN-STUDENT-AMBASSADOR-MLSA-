@@ -52,11 +52,6 @@ export default function Home() {
     tokenValidation()
   },[validatetoken])
 
-// useEffect(() => {
-//     const jsonToken: any = localStorage.getItem('sb-zxeckrmzphdqrunwgiqy-auth-token')
-//     const token = JSON.parse(jsonToken)?.access_token;
-//     token && Auth.authProfile();
-//   }, [])
 
   return (
     <div className="min-h-screen">
@@ -73,7 +68,7 @@ export default function Home() {
               <span className="text-glow">Microsoft Learn</span>
               <br />
               <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
-                Student Ambassador
+                Student Ambassador Unilorin
               </span>
             </h1>
             
@@ -90,7 +85,7 @@ export default function Home() {
                 </Link>
               </Button>
               <Button variant="glass" size="lg" asChild>
-                <Link to="/events">
+                <Link to={`${validatetoken ? "/events" : '/signup'} `}>
                   Explore Events
                 </Link>
               </Button>
@@ -197,7 +192,7 @@ export default function Home() {
                 </div>
                 
                 <Button variant="hero" size="lg" asChild>
-                  <Link to="/student-hub">
+                  <Link to={`${validatetoken ? "/student-hub" : "/signup"}`}>
                     Explore Student Hub
                     <ArrowRight className="w-5 h-5" />
                   </Link>
@@ -254,13 +249,13 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="hero" size="lg" asChild>
-                <Link to="/signup">
+                <Link to={`${validatetoken ? "/student-hub" : "/signup"}`}>
                   Get Started Now
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </Button>
               <Button variant="glass" size="lg" asChild>
-                <Link to="/team">
+                <Link to={`${validatetoken ? "/team" : "/signup"}`}>
                   Meet the Team
                 </Link>
               </Button>

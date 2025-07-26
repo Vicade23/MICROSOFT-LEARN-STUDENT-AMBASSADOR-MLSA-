@@ -38,9 +38,9 @@ export default function Login() {
         {/* Back to Home */}
         <div className="mb-8">
           <Button variant="glass" asChild>
-            <Link to="/" className="flex items-center gap-2">
+            <Link to="/signup" className="flex items-center gap-2">
               <ArrowLeft className="w-4 h-4" />
-              Back to Home
+              Back to Sign Up
             </Link>
           </Button>
         </div>

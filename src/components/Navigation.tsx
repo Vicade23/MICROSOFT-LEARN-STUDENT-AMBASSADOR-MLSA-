@@ -32,12 +32,12 @@ export function Navigation() {
   },[validatetoken])
   
   
-  const navItems = [
+  const navItems = validatetoken ? [
     { name: "Home", path: "/" },
     { name: "Events", path: "/events" },
     { name: "Student Hub", path: "/student-hub" },
     { name: "Team", path: "/team" },
-  ];
+  ] : [];
 
   const authItems = validatetoken ? [ { name: "View Profile", path: "/profile", icon: User }, ] 
   : [

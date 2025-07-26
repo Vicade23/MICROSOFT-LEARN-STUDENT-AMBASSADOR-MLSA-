@@ -12,10 +12,15 @@ import Login from "./pages/Login";
 import Signup from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { useAuth } from "./hooks/useAuth";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  const { user } = useAuth();
+
+  return (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
@@ -24,19 +29,39 @@ const App = () => (
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/student-hub" element={<StudentHub />} />
-            <Route path="/team" element={<Team />} />
+            <Route path="/events" element={
+              // <Events />
+                <ProtectedRoute isAuthenticated={!!user}>
+                  <Events />
+                </ProtectedRoute>
+              } />
+            <Route path="/student-hub" element={
+              // <StudentHub />
+                <ProtectedRoute isAuthenticated={!!user}>
+                  <StudentHub />
+                </ProtectedRoute>
+              } />
+            <Route path="/team" element={
+              // <Team />
+                <ProtectedRoute isAuthenticated={!!user}>
+                  <Team />
+                </ProtectedRoute>
+              } />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={
+              // <Profile />
+                <ProtectedRoute isAuthenticated={!!user}>
+                  <Profile />
+                </ProtectedRoute>
+              } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
       </BrowserRouter>
     </TooltipProvider>
-  </QueryClientProvider>
-);
+  </QueryClientProvider>)
+};
 
 export default App;
