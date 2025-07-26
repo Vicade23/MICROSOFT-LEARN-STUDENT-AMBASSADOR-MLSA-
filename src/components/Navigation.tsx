@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "../components/ui/sheet";
-import { Menu, X, User, LogIn, UserPlus } from "lucide-react";
+import { Menu, X, User, LogIn, UserPlus, LogOut } from "lucide-react";
 import { cn } from "../lib/utils";
 import logo from '../assets/students-ambassador-logo.png'
 import { Storage } from "../Services/Storage";
@@ -39,7 +39,7 @@ export function Navigation() {
     { name: "Team", path: "/team" },
   ] : [];
 
-  const authItems = validatetoken ? [ { name: "View Profile", path: "/profile", icon: User }, ] 
+  const authItems = validatetoken ? [ { name: "View Profile", path: "/profile", icon: User }, { name: "Log Out", path: "/", icon: LogOut },] 
   : [
       { name: "Login", path: "/login", icon: LogIn },
       { name: "Sign Up", path: "/signup", icon: UserPlus },
@@ -63,22 +63,25 @@ export function Navigation() {
   );
 
   const AuthLink = ({ item, mobile = false }: { item: typeof authItems[0]; mobile?: boolean }) => (
-    <Link
-      to={item.path}
-      onClick={() => mobile && setIsOpen(false)}
-    >
-      <Button 
-        variant={item.name === "Sign Up" ? "hero" : "glass"} 
-        size={mobile ? "default" : "sm"}
-        className={cn(
-          mobile && "w-full justify-start h-12 text-left",
-          !mobile && "gap-2"
-        )}
+    <>
+
+      <Link
+        to={item.path}
+        onClick={() => {mobile && setIsOpen(false); localStorage.setItem('sb-zxeckrmzphdqrunwgiqy-auth-token', JSON.stringify(null))}}
       >
-        <item.icon className="w-4 h-4" />
-        {item.name}
-      </Button>
-    </Link>
+        <Button 
+          variant={item.name === "Sign Up" || item.name === "Log Out" ? "hero" : "glass"} 
+          size={mobile ? "default" : "sm"}
+          className={cn(
+            mobile && "w-full justify-start h-12 text-left",
+            !mobile && "gap-2"
+          )}
+        >
+          <item.icon className="w-4 h-4" />
+          {item.name}
+        </Button>
+      </Link>
+    </>
   );
 
   return (
